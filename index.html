@@ -1,16 +1,67 @@
+
 <!DOCTYPE html>
-<html>
-
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قاموس المصطلحات الإدارية - HR Dictionary</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
-  Hello world
-  <script src="script.js"></script>
-</body>
+    <div class="container">
+        <header>
+            <h1>قاموس المصطلحات الإدارية</h1>
+            <h2>HR Dictionary & English Grammar Helper</h2>
+        </header>
 
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="ابحث عن مصطلح بالعربية أو الإنجليزية...">
+            <button onclick="searchTerm()">بحث</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('dictionary')">القاموس</button>
+            <button class="tab-button" onclick="showTab('grammar')">القواعد النحوية</button>
+        </div>
+
+        <div id="dictionary" class="tab-content active">
+            <h3>المصطلحات الإدارية - HR Terms</h3>
+            <div id="termsList" class="terms-list">
+                <!-- Terms will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div id="grammar" class="tab-content">
+            <h3>قواعد نحوية مساعدة - Grammar Helper</h3>
+            <div class="grammar-rules">
+                <div class="rule-card">
+                    <h4>قاعدة ING - ING Rule</h4>
+                    <p class="rule-text">تستخدم في الأزمنة المستمرة أو مع أفعال معينة للتعبير عن عمل جاري.</p>
+                    <p class="example"><strong>أمثلة:</strong> working (يعمل), running (يجري), training (يتدرب)</p>
+                </div>
+                
+                <div class="rule-card">
+                    <h4>قاعدة الجمع - Plural Rule</h4>
+                    <p class="rule-text">الجمع المنتظم: + s أو es</p>
+                    <p class="example"><strong>أمثلة:</strong> Employee → Employees, Class → Classes</p>
+                    <p class="rule-text">الجمع الشاذ:</p>
+                    <p class="example"><strong>أمثلة:</strong> Person → People, Child → Children</p>
+                </div>
+                
+                <div class="rule-card">
+                    <h4>قاعدة أحرف العلة - Vowels Rule (a, e, i, o, u)</h4>
+                    <p class="rule-text">تؤثر على هيكل الإملاء والنطق وتساعد في تحديد النمط الصوتي الصحيح في العديد من الكلمات الإنجليزية.</p>
+                    <p class="example"><strong>أمثلة:</strong> manage (يُدير), evaluate (يُقيّم), organize (يُنظم)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results" style="display: none;">
+            <h3>نتائج البحث - Search Results</h3>
+            <div id="resultsContainer"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
