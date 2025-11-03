@@ -1,0 +1,88 @@
+Project Title: Web Mini Dictionary - HR Terminology + English Grammar Micro Learning
+
+Project Summary:
+This project provides an interactive mini web dictionary that supports translation in both directions (Arabic <-> English) with focus on Human Resources terms as well as general English learning. The dictionary includes real usage sentences, grammar support sections, and search functionality to allow learners to find vocabulary and practice rules in a simple, practical way.
+
+Target Audience:
+Not limited to HR students only. This project benefits any English learner seeking development in vocabulary, sentence building, and real academic/professional usage.
+
+Project Components:
+1) HR Dictionary Section
+
+This page includes vocabulary translated both direction Arabic <-> English with realistic example sentences.
+
+Base Terms required inside the project:
+
+إدارة الموارد البشرية (Human Resource Management)
+
+الموظفين (Employees)
+
+الوظيفة (Job / Position)
+
+الراتب (Salary)
+
+تقييم الأداء (Performance Evaluation)
+
+التطوير (Development)
+
+التدريب (Training)
+
+المهارة (Skill)
+
+الخبرة (Experience)
+
+المسمى الوظيفي (Job Title)
+
+Each term includes:
+
+Translation both sides
+
+Simple sentence usage
+
+Category / part of speech
+
+2) Grammar Helper Section
+
+Short micro-rules with examples that support the user:
+
+ING Rule:
+Used in continuous tenses or specific verbs to express ongoing action. Example: working / running.
+
+Plural Rule:
+Regular plural: + s or es — (Employee → Employees / Class → Classes)
+Irregular plural: example (Person → People / Child → Children)
+
+Vowels Rule (a, e, i, o, u):
+They affect spelling + pronunciation structure and help identify correct sound pattern in many English words.
+
+3) Search Bar
+
+User can type any term in Arabic or English and see translation + definition + sample sentence instantly.
+
+Why is this counted as a Real Educational Project?
+
+Clear objective
+
+Real academic usefulness
+
+Bilingual support
+
+HR specialization + general English benefit
+
+Real implementation idea usable as prototype or web mini app
+
+Final Deliverables of this Project:
+
+Full educational content
+
+Organized structure
+
+Clear visual layout
+
+Search + dictionary concept
+
+Grammar support section
+
+Free full project report
+
+Free presentation slides
