@@ -229,6 +229,101 @@ button:hover {
     margin-top: 20px;
 }
 
+.term-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.speak-btn, .speak-btn-en, .favorite-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.speak-btn:hover, .speak-btn-en:hover {
+    background: #f0f7ff;
+    transform: scale(1.1);
+}
+
+.favorite-btn.active {
+    transform: scale(1.2);
+}
+
+.action-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    margin: 10px 0;
+}
+
+.quiz-intro {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.quiz-question {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.quiz-term {
+    font-size: 1.8em;
+    color: #667eea;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f0f7ff;
+    border-radius: 10px;
+}
+
+#quizAnswer {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    width: 300px;
+    max-width: 80%;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.quiz-score {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #764ba2;
+    font-weight: bold;
+}
+
+.quiz-result.correct {
+    color: #28a745;
+    background: #d4edda;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.quiz-result.incorrect {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.term-arabic:hover, .term-english:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -240,7 +335,7 @@ button:hover {
         font-size: 2em;
     }
     
-    #searchInput {
+    #searchInput, #quizAnswer {
         width: 100%;
     }
     
@@ -250,11 +345,21 @@ button:hover {
     }
     
     .tabs {
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .tab-button {
+        margin: 5px;
+        font-size: 14px;
+        padding: 10px 20px;
     }
     
     .terms-list {
         grid-template-columns: 1fr;
+    }
+    
+    .quiz-term {
+        font-size: 1.4em;
     }
 }

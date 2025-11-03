@@ -22,6 +22,8 @@
         <div class="tabs">
             <button class="tab-button active" onclick="showTab('dictionary')">القاموس</button>
             <button class="tab-button" onclick="showTab('grammar')">القواعد النحوية</button>
+            <button class="tab-button" onclick="showTab('favorites')">المفضلة</button>
+            <button class="tab-button" onclick="showTab('quiz')">اختبر نفسك</button>
         </div>
 
         <div id="dictionary" class="tab-content active">
@@ -54,6 +56,23 @@
                     <p class="example"><strong>أمثلة:</strong> manage (يُدير), evaluate (يُقيّم), organize (يُنظم)</p>
                 </div>
             </div>
+        </div>
+
+        <div id="favorites" class="tab-content">
+            <h3>المصطلحات المفضلة - Favorite Terms</h3>
+            <button onclick="showFavorites()" class="action-btn">عرض المفضلة</button>
+            <div id="termsList" class="terms-list">
+                <!-- Favorite terms will be shown here -->
+            </div>
+        </div>
+
+        <div id="quiz" class="tab-content">
+            <h3>اختبر معرفتك - Test Your Knowledge</h3>
+            <div class="quiz-intro">
+                <p>اختبر معرفتك بالمصطلحات الإدارية من خلال هذا الاختبار التفاعلي</p>
+                <button onclick="startQuiz()" class="action-btn">ابدأ الاختبار</button>
+            </div>
+            <div id="quizContainer"></div>
         </div>
 
         <div id="searchResults" class="search-results" style="display: none;">

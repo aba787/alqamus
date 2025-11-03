@@ -87,15 +87,25 @@ function displayAllTerms() {
 }
 
 // Create a term card element
-function createTermCard(term) {
+function createTermCard(term, index = null) {
     const card = document.createElement('div');
     card.className = 'term-card';
     
+    const termIndex = index !== null ? index : hrTerms.indexOf(term);
+    const isFavorite = favoriteTerms.includes(termIndex);
+    
     card.innerHTML = `
-        <div class="term-arabic">${term.arabic}</div>
-        <div class="term-english">${term.english}</div>
+        <div class="term-header">
+            <button class="speak-btn" onclick="speakText('${term.arabic}', 'ar')" title="استمع للنطق العربي">🔊</button>
+            <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(${termIndex})" title="إضافة للمفضلة">
+                ${isFavorite ? '❤️' : '🤍'}
+            </button>
+        </div>
+        <div class="term-arabic" onclick="speakText('${term.arabic}', 'ar')">${term.arabic}</div>
+        <div class="term-english" onclick="speakText('${term.english}', 'en')">${term.english}</div>
         <div class="term-category">${term.category}</div>
         <div class="term-example">${term.example}</div>
+        <button class="speak-btn-en" onclick="speakText('${term.english}', 'en')" title="Listen to English pronunciation">🔊 EN</button>
     `;
     
     return card;
@@ -184,6 +194,99 @@ function clearSearch() {
     hideSearchResults();
 }
 
+// Add pronunciation feature
+function speakText(text, lang = 'ar') {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang === 'ar' ? 'ar-SA' : 'en-US';
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+    }
+}
+
+// Add favorite terms functionality
+let favoriteTerms = JSON.parse(localStorage.getItem('favoriteTerms')) || [];
+
+function toggleFavorite(index) {
+    if (favoriteTerms.includes(index)) {
+        favoriteTerms = favoriteTerms.filter(i => i !== index);
+    } else {
+        favoriteTerms.push(index);
+    }
+    localStorage.setItem('favoriteTerms', JSON.stringify(favoriteTerms));
+    displayAllTerms(); // Refresh display
+}
+
+// Show favorites only
+function showFavorites() {
+    const termsList = document.getElementById('termsList');
+    termsList.innerHTML = '';
+    
+    if (favoriteTerms.length === 0) {
+        termsList.innerHTML = '<div class="no-results">لا توجد مصطلحات مفضلة بعد<br>No favorite terms yet</div>';
+        return;
+    }
+    
+    favoriteTerms.forEach(index => {
+        if (hrTerms[index]) {
+            const termCard = createTermCard(hrTerms[index], index);
+            termsList.appendChild(termCard);
+        }
+    });
+}
+
+// Add quiz functionality
+let currentQuizTerm = null;
+let quizScore = 0;
+let quizTotal = 0;
+
+function startQuiz() {
+    const randomIndex = Math.floor(Math.random() * hrTerms.length);
+    currentQuizTerm = hrTerms[randomIndex];
+    
+    const quizContainer = document.getElementById('quizContainer');
+    const isArabicToEnglish = Math.random() > 0.5;
+    
+    quizContainer.innerHTML = `
+        <div class="quiz-question">
+            <h4>ترجم المصطلح التالي:</h4>
+            <div class="quiz-term">${isArabicToEnglish ? currentQuizTerm.arabic : currentQuizTerm.english}</div>
+            <input type="text" id="quizAnswer" placeholder="اكتب الترجمة هنا...">
+            <button onclick="checkQuizAnswer(${isArabicToEnglish})">تحقق من الإجابة</button>
+            <div id="quizResult"></div>
+            <div class="quiz-score">النتيجة: ${quizScore}/${quizTotal}</div>
+        </div>
+    `;
+    
+    // Focus on input
+    setTimeout(() => document.getElementById('quizAnswer').focus(), 100);
+}
+
+function checkQuizAnswer(isArabicToEnglish) {
+    const userAnswer = document.getElementById('quizAnswer').value.trim().toLowerCase();
+    const correctAnswer = isArabicToEnglish ? currentQuizTerm.english.toLowerCase() : currentQuizTerm.arabic;
+    const resultDiv = document.getElementById('quizResult');
+    
+    quizTotal++;
+    
+    if (userAnswer === correctAnswer.toLowerCase() || userAnswer.includes(correctAnswer.toLowerCase().split(' ')[0])) {
+        quizScore++;
+        resultDiv.innerHTML = `<div class="correct">✅ صحيح! Correct!</div>`;
+        resultDiv.className = 'quiz-result correct';
+    } else {
+        resultDiv.innerHTML = `<div class="incorrect">❌ خطأ! الإجابة الصحيحة: ${correctAnswer}</div>`;
+        resultDiv.className = 'quiz-result incorrect';
+    }
+    
+    // Update score display
+    document.querySelector('.quiz-score').textContent = `النتيجة: ${quizScore}/${quizTotal}`;
+    
+    // Show next question button
+    setTimeout(() => {
+        resultDiv.innerHTML += '<button onclick="startQuiz()">سؤال آخر</button>';
+    }, 2000);
+}
+
 // Add some interactive features
 document.addEventListener('DOMContentLoaded', function() {
     // Add click to copy functionality for terms
@@ -198,6 +301,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.target.textContent = originalText;
                 }, 1000);
             });
+        }
+    });
+    
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'k') {
+            e.preventDefault();
+            document.getElementById('searchInput').focus();
         }
     });
 });
