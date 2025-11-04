@@ -224,7 +224,7 @@ function speakText(text, lang = 'ar') {
         // Configure voice settings based on language
         if (lang === 'ar') {
             utterance.lang = 'ar-SA';
-            utterance.rate = 0.7; // Slower for Arabic
+            utterance.rate = 1.0; // Normal speed for Arabic
             utterance.pitch = 1.1; // Slightly higher pitch
             utterance.volume = 0.9;
         } else {
@@ -611,8 +611,8 @@ function createVoicePanel() {
         <h4 style="margin-bottom: 15px; color: #667eea;">إعدادات النطق</h4>
         <div style="margin-bottom: 10px;">
             <label>سرعة النطق العربي:</label>
-            <input type="range" id="arabicSpeed" min="0.3" max="1.5" step="0.1" value="0.7">
-            <span id="arabicSpeedValue">0.7</span>
+            <input type="range" id="arabicSpeed" min="0.3" max="1.5" step="0.1" value="1.0">
+            <span id="arabicSpeedValue">1.0</span>
         </div>
         <div style="margin-bottom: 10px;">
             <label>سرعة النطق الإنجليزي:</label>
@@ -652,7 +652,7 @@ function testVoice() {
     // Test Arabic
     setTimeout(() => {
         if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance('مرحباً، هذا اختبار للصوت العربي');
+            const utterance = new SpeechSynthesisUtterance('مرحباً، هذا اختبار للصوت العربي بسرعة محسّنة');
             utterance.lang = 'ar-SA';
             utterance.rate = parseFloat(arabicSpeed);
             utterance.volume = parseFloat(volume);
@@ -675,7 +675,7 @@ function testVoice() {
 // Update speakText to use custom settings
 const originalSpeakText = speakText;
 speakText = function(text, lang = 'ar') {
-    const arabicSpeed = document.getElementById('arabicSpeed')?.value || 0.7;
+    const arabicSpeed = document.getElementById('arabicSpeed')?.value || 1.0;
     const englishSpeed = document.getElementById('englishSpeed')?.value || 0.8;
     const volume = document.getElementById('volumeLevel')?.value || 0.9;
     
