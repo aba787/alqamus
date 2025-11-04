@@ -68,6 +68,32 @@ header {
     position: relative;
 }
 
+.logo-container {
+    margin-bottom: 20px;
+    animation: logoFloat 3s ease-in-out infinite alternate;
+}
+
+.logo {
+    max-height: 80px;
+    width: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(2deg);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+}
+
+@keyframes logoFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
 header::after {
     content: '';
     position: absolute;
