@@ -67,6 +67,13 @@ const hrTerms = [
 document.addEventListener('DOMContentLoaded', function() {
     displayAllTerms();
     
+    // Load voices when available
+    if ('speechSynthesis' in window) {
+        speechSynthesis.addEventListener('voiceschanged', function() {
+            console.log('Available voices loaded');
+        });
+    }
+    
     // Add enter key functionality to search
     document.getElementById('searchInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -82,6 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize particles background
     initParticles();
+    
+    // Add voice settings panel
+    createVoiceSettings();
 });
 
 // Display all terms in the dictionary tab
@@ -203,13 +213,55 @@ function clearSearch() {
     hideSearchResults();
 }
 
-// Add pronunciation feature
+// Enhanced pronunciation feature with better voice settings
 function speakText(text, lang = 'ar') {
     if ('speechSynthesis' in window) {
+        // Stop any current speech
+        speechSynthesis.cancel();
+        
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = lang === 'ar' ? 'ar-SA' : 'en-US';
-        utterance.rate = 0.8;
+        
+        // Configure voice settings based on language
+        if (lang === 'ar') {
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.7; // Slower for Arabic
+            utterance.pitch = 1.1; // Slightly higher pitch
+            utterance.volume = 0.9;
+        } else {
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8; // Natural speed for English
+            utterance.pitch = 1.0; // Normal pitch
+            utterance.volume = 0.9;
+        }
+        
+        // Try to find a better voice
+        const voices = speechSynthesis.getVoices();
+        const preferredVoice = voices.find(voice => {
+            if (lang === 'ar') {
+                return voice.lang.startsWith('ar') && voice.name.includes('Female');
+            } else {
+                return voice.lang.startsWith('en') && (voice.name.includes('Google') || voice.name.includes('Microsoft'));
+            }
+        });
+        
+        if (preferredVoice) {
+            utterance.voice = preferredVoice;
+        }
+        
+        // Add visual feedback during speech
+        utterance.onstart = function() {
+            document.body.style.setProperty('--speech-active', '1');
+            showSpeechIndicator();
+        };
+        
+        utterance.onend = function() {
+            document.body.style.setProperty('--speech-active', '0');
+            hideSpeechIndicator();
+        };
+        
         speechSynthesis.speak(utterance);
+    } else {
+        alert('المتصفح لا يدعم ميزة النطق - Speech not supported in this browser');
     }
 }
 
@@ -366,6 +418,45 @@ function addLoadingAnimations() {
     });
 }
 
+// Show visual speech indicator
+function showSpeechIndicator() {
+    const indicator = document.createElement('div');
+    indicator.id = 'speechIndicator';
+    indicator.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 10000;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        animation: pulseIndicator 1.5s infinite;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    `;
+    
+    indicator.innerHTML = `
+        <div style="width: 20px; height: 20px; background: white; border-radius: 50%; animation: bounce 1s infinite;"></div>
+        جاري النطق... Speaking...
+    `;
+    
+    document.body.appendChild(indicator);
+}
+
+// Hide speech indicator
+function hideSpeechIndicator() {
+    const indicator = document.getElementById('speechIndicator');
+    if (indicator) {
+        indicator.style.animation = 'fadeOut 0.5s ease';
+        setTimeout(() => indicator.remove(), 500);
+    }
+}
+
 // Beautiful copy notification
 function showCopyNotification(element, text) {
     const notification = document.createElement('div');
@@ -467,6 +558,156 @@ function searchTerm() {
     displaySearchResults(results, query);
 }
 
+// Create voice settings panel
+function createVoiceSettings() {
+    const settingsBtn = document.createElement('button');
+    settingsBtn.innerHTML = '🎙️ إعدادات الصوت';
+    settingsBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #f093fb, #f5576c);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+    `;
+    
+    settingsBtn.onclick = function() {
+        const panel = document.getElementById('voicePanel');
+        if (panel) {
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        } else {
+            createVoicePanel();
+        }
+    };
+    
+    document.body.appendChild(settingsBtn);
+}
+
+// Create voice control panel
+function createVoicePanel() {
+    const panel = document.createElement('div');
+    panel.id = 'voicePanel';
+    panel.style.cssText = `
+        position: fixed;
+        bottom: 80px;
+        left: 20px;
+        width: 300px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        font-size: 14px;
+    `;
+    
+    panel.innerHTML = `
+        <h4 style="margin-bottom: 15px; color: #667eea;">إعدادات النطق</h4>
+        <div style="margin-bottom: 10px;">
+            <label>سرعة النطق العربي:</label>
+            <input type="range" id="arabicSpeed" min="0.3" max="1.5" step="0.1" value="0.7">
+            <span id="arabicSpeedValue">0.7</span>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>سرعة النطق الإنجليزي:</label>
+            <input type="range" id="englishSpeed" min="0.3" max="1.5" step="0.1" value="0.8">
+            <span id="englishSpeedValue">0.8</span>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>مستوى الصوت:</label>
+            <input type="range" id="volumeLevel" min="0.1" max="1" step="0.1" value="0.9">
+            <span id="volumeValue">0.9</span>
+        </div>
+        <button onclick="testVoice()" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer;">🎵 اختبار الصوت</button>
+    `;
+    
+    document.body.appendChild(panel);
+    
+    // Add event listeners for sliders
+    document.getElementById('arabicSpeed').oninput = function() {
+        document.getElementById('arabicSpeedValue').textContent = this.value;
+    };
+    
+    document.getElementById('englishSpeed').oninput = function() {
+        document.getElementById('englishSpeedValue').textContent = this.value;
+    };
+    
+    document.getElementById('volumeLevel').oninput = function() {
+        document.getElementById('volumeValue').textContent = this.value;
+    };
+}
+
+// Test voice function
+function testVoice() {
+    const arabicSpeed = document.getElementById('arabicSpeed').value;
+    const englishSpeed = document.getElementById('englishSpeed').value;
+    const volume = document.getElementById('volumeLevel').value;
+    
+    // Test Arabic
+    setTimeout(() => {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance('مرحباً، هذا اختبار للصوت العربي');
+            utterance.lang = 'ar-SA';
+            utterance.rate = parseFloat(arabicSpeed);
+            utterance.volume = parseFloat(volume);
+            speechSynthesis.speak(utterance);
+        }
+    }, 100);
+    
+    // Test English after Arabic
+    setTimeout(() => {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance('Hello, this is an English voice test');
+            utterance.lang = 'en-US';
+            utterance.rate = parseFloat(englishSpeed);
+            utterance.volume = parseFloat(volume);
+            speechSynthesis.speak(utterance);
+        }
+    }, 3000);
+}
+
+// Update speakText to use custom settings
+const originalSpeakText = speakText;
+speakText = function(text, lang = 'ar') {
+    const arabicSpeed = document.getElementById('arabicSpeed')?.value || 0.7;
+    const englishSpeed = document.getElementById('englishSpeed')?.value || 0.8;
+    const volume = document.getElementById('volumeLevel')?.value || 0.9;
+    
+    if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        if (lang === 'ar') {
+            utterance.lang = 'ar-SA';
+            utterance.rate = parseFloat(arabicSpeed);
+            utterance.pitch = 1.1;
+            utterance.volume = parseFloat(volume);
+        } else {
+            utterance.lang = 'en-US';
+            utterance.rate = parseFloat(englishSpeed);
+            utterance.pitch = 1.0;
+            utterance.volume = parseFloat(volume);
+        }
+        
+        utterance.onstart = function() {
+            showSpeechIndicator();
+        };
+        
+        utterance.onend = function() {
+            hideSpeechIndicator();
+        };
+        
+        speechSynthesis.speak(utterance);
+    }
+};
+
 // Add CSS animations
 const style = document.createElement('style');
 style.textContent = `
@@ -487,6 +728,21 @@ style.textContent = `
     @keyframes float {
         0% { transform: translateY(0) rotate(0deg); }
         100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+    
+    @keyframes pulseIndicator {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+    
+    @keyframes fadeOut {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0.8); }
     }
 `;
 document.head.appendChild(style);
