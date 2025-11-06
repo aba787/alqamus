@@ -15,6 +15,38 @@ body {
     overflow-x: hidden;
 }
 
+/* صورة الزاوية */
+.corner-image {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.corner-image:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+
+@media (max-width: 768px) {
+    .corner-image {
+        width: 60px;
+        height: 60px;
+        top: 15px;
+        left: 15px;
+    }
+}
+
 /* خلفية متحركة */
 body::before {
     content: '';
