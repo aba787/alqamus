@@ -213,53 +213,92 @@ function clearSearch() {
     hideSearchResults();
 }
 
-// Enhanced pronunciation feature with better voice settings
+// Enhanced pronunciation feature with better voice settings and quality
 function speakText(text, lang = 'ar') {
     if ('speechSynthesis' in window) {
-        // Stop any current speech
+        // Stop any current speech and clear queue
         speechSynthesis.cancel();
         
-        const utterance = new SpeechSynthesisUtterance(text);
-        
-        // Configure voice settings based on language
-        if (lang === 'ar') {
-            utterance.lang = 'ar-SA';
-            utterance.rate = 1.0; // Normal speed for Arabic
-            utterance.pitch = 1.1; // Slightly higher pitch
-            utterance.volume = 0.9;
-        } else {
-            utterance.lang = 'en-US';
-            utterance.rate = 0.8; // Natural speed for English
-            utterance.pitch = 1.0; // Normal pitch
-            utterance.volume = 0.9;
-        }
-        
-        // Try to find a better voice
-        const voices = speechSynthesis.getVoices();
-        const preferredVoice = voices.find(voice => {
+        // Wait a moment to ensure clean start
+        setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // Configure voice settings based on language for better clarity
             if (lang === 'ar') {
-                return voice.lang.startsWith('ar') && voice.name.includes('Female');
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.85; // Slower for better clarity in Arabic
+                utterance.pitch = 1.0; // Natural pitch for clearer sound
+                utterance.volume = 1.0; // Maximum volume for clarity
             } else {
-                return voice.lang.startsWith('en') && (voice.name.includes('Google') || voice.name.includes('Microsoft'));
+                utterance.lang = 'en-US';
+                utterance.rate = 0.75; // Slower English for better pronunciation
+                utterance.pitch = 1.0; // Natural pitch
+                utterance.volume = 1.0; // Maximum volume
             }
-        });
+            
+            // Enhanced voice selection for better quality
+            const voices = speechSynthesis.getVoices();
+            let selectedVoice = null;
+            
+            if (lang === 'ar') {
+                // Priority order for Arabic voices
+                selectedVoice = voices.find(voice => 
+                    voice.lang.includes('ar-SA') || 
+                    voice.lang.includes('ar-EG') || 
+                    voice.lang.includes('ar')
+                ) || voices.find(voice => voice.lang.startsWith('ar'));
+            } else {
+                // Priority order for English voices
+                selectedVoice = voices.find(voice => 
+                    voice.name.includes('Google') && voice.lang.includes('en-US')
+                ) || voices.find(voice => 
+                    voice.name.includes('Microsoft') && voice.lang.includes('en-US')
+                ) || voices.find(voice => voice.lang.includes('en-US')) || 
+                voices.find(voice => voice.lang.startsWith('en'));
+            }
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+                console.log(`Using voice: ${selectedVoice.name} (${selectedVoice.lang})`);
+            }
+            
+            // Enhanced event handlers for better experience
+            utterance.onstart = function() {
+                document.body.style.setProperty('--speech-active', '1');
+                showSpeechIndicator();
+                console.log(`Speaking: ${text}`);
+            };
+            
+            utterance.onend = function() {
+                document.body.style.setProperty('--speech-active', '0');
+                hideSpeechIndicator();
+                console.log('Speech ended successfully');
+            };
+            
+            utterance.onerror = function(event) {
+                console.error('Speech error:', event.error);
+                hideSpeechIndicator();
+                // Retry once if error occurs
+                if (event.error === 'interrupted' || event.error === 'canceled') {
+                    setTimeout(() => {
+                        speechSynthesis.speak(utterance);
+                    }, 100);
+                }
+            };
+            
+            utterance.onpause = function() {
+                console.log('Speech paused');
+            };
+            
+            utterance.onresume = function() {
+                console.log('Speech resumed');
+            };
+            
+            // Speak with enhanced settings
+            speechSynthesis.speak(utterance);
+            
+        }, 50); // Small delay for clean speech start
         
-        if (preferredVoice) {
-            utterance.voice = preferredVoice;
-        }
-        
-        // Add visual feedback during speech
-        utterance.onstart = function() {
-            document.body.style.setProperty('--speech-active', '1');
-            showSpeechIndicator();
-        };
-        
-        utterance.onend = function() {
-            document.body.style.setProperty('--speech-active', '0');
-            hideSpeechIndicator();
-        };
-        
-        speechSynthesis.speak(utterance);
     } else {
         alert('المتصفح لا يدعم ميزة النطق - Speech not supported in this browser');
     }
@@ -608,21 +647,21 @@ function createVoicePanel() {
     `;
     
     panel.innerHTML = `
-        <h4 style="margin-bottom: 15px; color: #667eea;">إعدادات النطق</h4>
+        <h4 style="margin-bottom: 15px; color: #667eea;">إعدادات النطق عالي الجودة</h4>
         <div style="margin-bottom: 10px;">
-            <label>سرعة النطق العربي:</label>
-            <input type="range" id="arabicSpeed" min="0.3" max="1.5" step="0.1" value="1.0">
-            <span id="arabicSpeedValue">1.0</span>
+            <label>سرعة النطق العربي (للوضوح):</label>
+            <input type="range" id="arabicSpeed" min="0.3" max="1.5" step="0.05" value="0.85">
+            <span id="arabicSpeedValue">0.85</span>
         </div>
         <div style="margin-bottom: 10px;">
-            <label>سرعة النطق الإنجليزي:</label>
-            <input type="range" id="englishSpeed" min="0.3" max="1.5" step="0.1" value="0.8">
-            <span id="englishSpeedValue">0.8</span>
+            <label>سرعة النطق الإنجليزي (للوضوح):</label>
+            <input type="range" id="englishSpeed" min="0.3" max="1.5" step="0.05" value="0.75">
+            <span id="englishSpeedValue">0.75</span>
         </div>
         <div style="margin-bottom: 10px;">
-            <label>مستوى الصوت:</label>
-            <input type="range" id="volumeLevel" min="0.1" max="1" step="0.1" value="0.9">
-            <span id="volumeValue">0.9</span>
+            <label>مستوى الصوت (أقصى وضوح):</label>
+            <input type="range" id="volumeLevel" min="0.5" max="1" step="0.05" value="1.0">
+            <span id="volumeValue">1.0</span>
         </div>
         <button onclick="testVoice()" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer;">🎵 اختبار الصوت</button>
     `;
@@ -643,68 +682,123 @@ function createVoicePanel() {
     };
 }
 
-// Test voice function
+// Enhanced test voice function with improved clarity
 function testVoice() {
     const arabicSpeed = document.getElementById('arabicSpeed').value;
     const englishSpeed = document.getElementById('englishSpeed').value;
     const volume = document.getElementById('volumeLevel').value;
     
-    // Test Arabic
+    // Stop any current speech
+    speechSynthesis.cancel();
+    
+    // Test Arabic with enhanced settings
     setTimeout(() => {
         if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance('مرحباً، هذا اختبار للصوت العربي بسرعة محسّنة');
+            const utterance = new SpeechSynthesisUtterance('مرحباً، هذا اختبار للصوت العربي الواضح بدون تقطع');
             utterance.lang = 'ar-SA';
             utterance.rate = parseFloat(arabicSpeed);
             utterance.volume = parseFloat(volume);
+            utterance.pitch = 1.0;
+            
+            // Find best Arabic voice
+            const voices = speechSynthesis.getVoices();
+            const arabicVoice = voices.find(voice => 
+                voice.lang.includes('ar-SA') || voice.lang.includes('ar')
+            );
+            if (arabicVoice) {
+                utterance.voice = arabicVoice;
+            }
+            
+            utterance.onend = function() {
+                // Test English after Arabic completes
+                setTimeout(() => {
+                    if ('speechSynthesis' in window) {
+                        const englishUtterance = new SpeechSynthesisUtterance('Hello, this is a clear English voice test without interruption');
+                        englishUtterance.lang = 'en-US';
+                        englishUtterance.rate = parseFloat(englishSpeed);
+                        englishUtterance.volume = parseFloat(volume);
+                        englishUtterance.pitch = 1.0;
+                        
+                        // Find best English voice
+                        const englishVoice = voices.find(voice => 
+                            voice.lang.includes('en-US') && 
+                            (voice.name.includes('Google') || voice.name.includes('Microsoft'))
+                        ) || voices.find(voice => voice.lang.includes('en-US'));
+                        
+                        if (englishVoice) {
+                            englishUtterance.voice = englishVoice;
+                        }
+                        
+                        speechSynthesis.speak(englishUtterance);
+                    }
+                }, 200);
+            };
+            
             speechSynthesis.speak(utterance);
         }
-    }, 100);
-    
-    // Test English after Arabic
-    setTimeout(() => {
-        if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance('Hello, this is an English voice test');
-            utterance.lang = 'en-US';
-            utterance.rate = parseFloat(englishSpeed);
-            utterance.volume = parseFloat(volume);
-            speechSynthesis.speak(utterance);
-        }
-    }, 3000);
+    }, 200);
 }
 
-// Update speakText to use custom settings
+// Update speakText to use enhanced custom settings for clarity
 const originalSpeakText = speakText;
 speakText = function(text, lang = 'ar') {
-    const arabicSpeed = document.getElementById('arabicSpeed')?.value || 1.0;
-    const englishSpeed = document.getElementById('englishSpeed')?.value || 0.8;
-    const volume = document.getElementById('volumeLevel')?.value || 0.9;
+    const arabicSpeed = document.getElementById('arabicSpeed')?.value || 0.85;
+    const englishSpeed = document.getElementById('englishSpeed')?.value || 0.75;
+    const volume = document.getElementById('volumeLevel')?.value || 1.0;
     
     if ('speechSynthesis' in window) {
+        // Enhanced stopping and clearing for better audio quality
         speechSynthesis.cancel();
         
-        const utterance = new SpeechSynthesisUtterance(text);
-        
-        if (lang === 'ar') {
-            utterance.lang = 'ar-SA';
-            utterance.rate = parseFloat(arabicSpeed);
-            utterance.pitch = 1.1;
-            utterance.volume = parseFloat(volume);
-        } else {
-            utterance.lang = 'en-US';
-            utterance.rate = parseFloat(englishSpeed);
-            utterance.pitch = 1.0;
-            utterance.volume = parseFloat(volume);
-        }
-        
-        utterance.onstart = function() {
-            showSpeechIndicator();
-        };
-        
-        utterance.onend = function() {
-            hideSpeechIndicator();
-        };
-        
-        speechSynthesis.speak(utterance);
+        setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            if (lang === 'ar') {
+                utterance.lang = 'ar-SA';
+                utterance.rate = parseFloat(arabicSpeed);
+                utterance.pitch = 1.0; // Natural pitch for clarity
+                utterance.volume = parseFloat(volume);
+            } else {
+                utterance.lang = 'en-US';
+                utterance.rate = parseFloat(englishSpeed);
+                utterance.pitch = 1.0; // Natural pitch for clarity
+                utterance.volume = parseFloat(volume);
+            }
+            
+            // Enhanced voice selection
+            const voices = speechSynthesis.getVoices();
+            let selectedVoice = null;
+            
+            if (lang === 'ar') {
+                selectedVoice = voices.find(voice => 
+                    voice.lang.includes('ar-SA') || voice.lang.includes('ar')
+                );
+            } else {
+                selectedVoice = voices.find(voice => 
+                    voice.lang.includes('en-US') && 
+                    (voice.name.includes('Google') || voice.name.includes('Microsoft'))
+                ) || voices.find(voice => voice.lang.includes('en-US'));
+            }
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            
+            utterance.onstart = function() {
+                showSpeechIndicator();
+            };
+            
+            utterance.onend = function() {
+                hideSpeechIndicator();
+            };
+            
+            utterance.onerror = function(event) {
+                console.error('Speech error:', event.error);
+                hideSpeechIndicator();
+            };
+            
+            speechSynthesis.speak(utterance);
+        }, 50); // Small delay for cleaner audio
     }
 };
 
