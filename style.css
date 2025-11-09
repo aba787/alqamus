@@ -9,7 +9,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #F5E6D3;
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 50%, #8B1538 100%);
+    background: #8B1538;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -50,7 +50,7 @@ body::before {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #8B1538, #A0522D, #F5E6D3, #8B1538);
+    background: #8B1538;
     border-radius: 27px;
     z-index: -1;
     animation: borderGlow 3s ease-in-out infinite alternate;
@@ -80,7 +80,7 @@ header {
     border-radius: 20px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 50%, #F5E6D3 100%);
+    background: #A0522D;
     padding: 20px;
     backdrop-filter: blur(15px);
     border: 3px solid rgba(245, 230, 211, 0.4);
@@ -95,7 +95,7 @@ header {
     left: -3px;
     width: calc(100% + 6px);
     height: calc(100% + 6px);
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 50%, #F5E6D3 100%);
+    background: #8B1538;
     border-radius: 23px;
     z-index: -1;
     opacity: 0.8;
@@ -119,14 +119,12 @@ header::after {
     transform: translateX(-50%);
     width: 100px;
     height: 4px;
-    background: linear-gradient(90deg, #8B1538, #A0522D);
+    background: #8B1538;
     border-radius: 2px;
 }
 
 header h1 {
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #8B1538;
     font-size: 3em;
     margin-bottom: 15px;
     text-shadow: none;
@@ -185,7 +183,7 @@ header h2 {
 
 button {
     padding: 18px 35px;
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
+    background: #8B1538;
     color: #F5E6D3;
     border: none;
     border-radius: 50px;
@@ -216,7 +214,7 @@ button:hover::before {
 button:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 35px rgba(139, 21, 56, 0.4);
-    background: linear-gradient(135deg, #A0522D 0%, #8B1538 100%);
+    background: #A0522D;
 }
 
 button:active {
@@ -251,7 +249,7 @@ button:active {
 }
 
 .tab-button.active {
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
+    background: #8B1538;
     color: #F5E6D3;
     border-color: transparent;
     box-shadow: 0 10px 30px rgba(139, 21, 56, 0.4);
@@ -292,9 +290,7 @@ button:active {
 
 .tab-content h3 {
     text-align: center;
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #8B1538;
     margin-bottom: 40px;
     font-size: 2.2em;
     font-weight: 700;
@@ -309,7 +305,7 @@ button:active {
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background: linear-gradient(90deg, #8B1538, #A0522D);
+    background: #8B1538;
     border-radius: 2px;
 }
 
@@ -324,10 +320,7 @@ button:active {
     backdrop-filter: blur(10px);
     padding: 25px;
     border-radius: 20px;
-    border-left: 5px solid transparent;
-    background-image: linear-gradient(rgba(245, 230, 211, 0.95), rgba(245, 230, 211, 0.95)), linear-gradient(135deg, #8B1538, #A0522D);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
+    border-left: 5px solid #8B1538;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -358,9 +351,7 @@ button:active {
 .term-arabic {
     font-size: 1.6em;
     font-weight: 700;
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #8B1538;
     margin-bottom: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -381,7 +372,7 @@ button:active {
 }
 
 .term-category {
-    background: linear-gradient(135deg, #A0522D 0%, #8B1538 100%);
+    background: #A0522D;
     color: #F5E6D3;
     padding: 6px 15px;
     border-radius: 20px;
@@ -395,7 +386,7 @@ button:active {
 .term-example {
     font-style: italic;
     color: #2C1810;
-    background: linear-gradient(135deg, rgba(139, 21, 56, 0.1) 0%, rgba(160, 82, 45, 0.1) 100%);
+    background: rgba(139, 21, 56, 0.1);
     padding: 15px;
     border-radius: 15px;
     border-left: 4px solid #8B1538;
@@ -424,10 +415,7 @@ button:active {
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    border-top: 6px solid transparent;
-    background-image: linear-gradient(rgba(245, 230, 211, 0.95), rgba(245, 230, 211, 0.95)), linear-gradient(135deg, #A0522D, #8B1538);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
+    border-top: 6px solid #A0522D;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
@@ -438,9 +426,7 @@ button:active {
 }
 
 .rule-card h4 {
-    background: linear-gradient(135deg, #A0522D 0%, #8B1538 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #A0522D;
     font-size: 1.5em;
     margin-bottom: 20px;
     font-weight: 700;
@@ -454,7 +440,7 @@ button:active {
 }
 
 .example {
-    background: linear-gradient(135deg, rgba(160, 82, 45, 0.1) 0%, rgba(139, 21, 56, 0.1) 100%);
+    background: rgba(160, 82, 45, 0.1);
     padding: 15px;
     border-radius: 12px;
     border-left: 4px solid #A0522D;
@@ -533,13 +519,13 @@ button:active {
 }
 
 .action-btn {
-    background: linear-gradient(135deg, #A0522D 0%, #8B1538 100%);
+    background: #A0522D;
     margin: 15px 0;
     box-shadow: 0 8px 25px rgba(160, 82, 45, 0.3);
 }
 
 .action-btn:hover {
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
+    background: #8B1538;
     box-shadow: 0 15px 35px rgba(160, 82, 45, 0.4);
 }
 
@@ -576,9 +562,7 @@ button:active {
 
 .quiz-term {
     font-size: 2em;
-    background: linear-gradient(135deg, #8B1538 0%, #A0522D 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #8B1538;
     margin: 25px 0;
     padding: 20px;
     background-color: rgba(139, 21, 56, 0.1);
@@ -618,15 +602,13 @@ button:active {
 .quiz-score {
     margin-top: 25px;
     font-size: 1.3em;
-    background: linear-gradient(135deg, #A0522D 0%, #8B1538 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #A0522D;
     font-weight: bold;
 }
 
 .quiz-result.correct {
     color: #A0522D;
-    background: linear-gradient(135deg, rgba(160, 82, 45, 0.1) 0%, rgba(139, 21, 56, 0.1) 100%);
+    background: rgba(160, 82, 45, 0.1);
     padding: 20px;
     border-radius: 15px;
     margin: 20px 0;
@@ -636,7 +618,7 @@ button:active {
 
 .quiz-result.incorrect {
     color: #8B1538;
-    background: linear-gradient(135deg, rgba(139, 21, 56, 0.1) 0%, rgba(160, 82, 45, 0.1) 100%);
+    background: rgba(139, 21, 56, 0.1);
     padding: 20px;
     border-radius: 15px;
     margin: 20px 0;
