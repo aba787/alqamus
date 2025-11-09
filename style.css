@@ -143,6 +143,11 @@ header h2 {
     font-size: 1.4em;
     font-weight: 300;
     opacity: 0.8;
+    background-color: #F5E6D3;
+    padding: 10px 20px;
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .search-section {
