@@ -664,16 +664,136 @@ button:active {
     }
 }
 
-/* تحسين التجاوب للشاشات الصغيرة */
-@media (max-width: 768px) {
+/* تحسين التجاوب للأجهزة الصغيرة جداً */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    
     .container {
-        margin: 15px;
+        margin: 5px;
+        padding: 15px;
+        border-radius: 15px;
+        max-width: calc(100vw - 10px);
+        box-sizing: border-box;
+    }
+    
+    .logo {
+        height: 80px;
+        max-height: 80px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+        margin-bottom: 8px;
+        line-height: 1.2;
+    }
+    
+    header h2 {
+        font-size: 0.95em;
+        margin-bottom: 15px;
+    }
+    
+    #searchInput, #quizAnswer {
+        width: 100%;
+        padding: 15px 18px;
+        font-size: 16px;
+        border-radius: 25px;
+        margin-bottom: 10px;
+    }
+    
+    .search-section {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    
+    .tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 25px;
+    }
+    
+    .tab-button {
+        font-size: 13px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        margin: 0;
+    }
+    
+    .terms-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .term-card {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    
+    .term-arabic {
+        font-size: 1.3em;
+    }
+    
+    .term-english {
+        font-size: 1.1em;
+    }
+    
+    .term-example {
+        font-size: 0.9em;
+        padding: 12px;
+    }
+    
+    .quiz-term {
+        font-size: 1.3em;
+        padding: 15px;
+    }
+    
+    .rule-card {
+        padding: 15px;
+    }
+    
+    button {
+        padding: 12px 20px;
+        font-size: 14px;
+        border-radius: 20px;
+        width: auto;
+        min-width: auto;
+    }
+    
+    .action-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .quiz-question {
+        padding: 20px 15px;
+    }
+    
+    .grammar-rules {
+        gap: 15px;
+    }
+}
+
+/* تحسين للهواتف الذكية العادية */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        margin: 10px;
         padding: 20px;
         border-radius: 20px;
+        max-width: calc(100vw - 20px);
+    }
+    
+    .logo {
+        height: 100px;
+        max-height: 100px;
     }
     
     header h1 {
         font-size: 2.2em;
+        margin-bottom: 10px;
     }
     
     header h2 {
@@ -683,6 +803,7 @@ button:active {
     #searchInput, #quizAnswer {
         width: 100%;
         font-size: 16px;
+        padding: 16px 20px;
     }
     
     .search-section {
@@ -692,15 +813,16 @@ button:active {
     }
     
     .tabs {
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
+        margin-bottom: 30px;
     }
     
     .tab-button {
-        margin: 5px;
         font-size: 14px;
         padding: 12px 20px;
+        margin: 0;
     }
     
     .terms-list {
@@ -713,7 +835,7 @@ button:active {
     }
     
     .quiz-term {
-        font-size: 1.5em;
+        font-size: 1.6em;
     }
     
     .rule-card {
@@ -726,6 +848,200 @@ button:active {
     }
 }
 
+/* تحسين للأجهزة اللوحية */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        margin: 20px;
+        padding: 25px;
+        max-width: calc(100vw - 40px);
+    }
+    
+    .logo {
+        height: 120px;
+        max-height: 120px;
+    }
+    
+    header h1 {
+        font-size: 2.6em;
+    }
+    
+    header h2 {
+        font-size: 1.2em;
+    }
+    
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+    
+    .tab-button {
+        font-size: 15px;
+        padding: 14px 25px;
+    }
+    
+    .terms-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    #searchInput {
+        width: 400px;
+        max-width: 70%;
+    }
+    
+    .search-section {
+        flex-direction: row;
+        gap: 15px;
+    }
+}
+
+/* تحسين للشاشات الكبيرة */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .container {
+        max-width: 1100px;
+        padding: 30px;
+    }
+    
+    .terms-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    header h1 {
+        font-size: 3.2em;
+    }
+    
+    header h2 {
+        font-size: 1.4em;
+    }
+}
+
+/* تحسين للشاشات العريضة جداً */
+@media (min-width: 1441px) {
+    .container {
+        max-width: 1300px;
+        padding: 35px;
+    }
+    
+    .terms-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px;
+    }
+    
+    header h1 {
+        font-size: 3.5em;
+    }
+    
+    header h2 {
+        font-size: 1.5em;
+    }
+    
+    .term-card {
+        padding: 30px;
+    }
+    
+    .rule-card {
+        padding: 35px;
+    }
+}
+
+/* تحسينات عامة للتفاعل باللمس */
+@media (hover: none) and (pointer: coarse) {
+    button, .tab-button, .term-arabic, .term-english, .speak-btn, .speak-btn-en, .favorite-btn {
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+    }
+    
+    .term-card:hover {
+        transform: none;
+    }
+    
+    .term-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    button:hover {
+        transform: none;
+    }
+    
+    button:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* تحسين للوضع الأفقي على الهواتف */
+@media (max-width: 768px) and (orientation: landscape) {
+    .container {
+        margin: 5px;
+        padding: 15px;
+    }
+    
+    header {
+        padding: 15px 0;
+        margin-bottom: 20px;
+    }
+    
+    .logo {
+        height: 60px;
+        max-height: 60px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+        margin-bottom: 5px;
+    }
+    
+    header h2 {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+    
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .tab-button {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+}
+
+/* تحسين الطباعة */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .container {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        background: white !important;
+    }
+    
+    .search-section, .tabs, button {
+        display: none !important;
+    }
+    
+    .term-card {
+        break-inside: avoid;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+    }
+    
+    .logo {
+        max-height: 100px;
+    }
+}
+
 /* تحسينات إضافية للتفاعل */
 .interactive-hover {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -733,6 +1049,117 @@ button:active {
 
 .interactive-hover:hover {
     transform: translateY(-2px);
+}
+
+/* تحسين الأداء والسلاسة */
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* تحسين التمرير */
+html {
+    scroll-behavior: smooth;
+}
+
+/* تحسين النصوص للشاشات عالية الدقة */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .term-arabic, .term-english, header h1, header h2 {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* تحسين للأجهزة ذات الذاكرة المحدودة */
+@media (max-width: 480px) {
+    .container::before,
+    body::before,
+    .term-card::before {
+        display: none;
+    }
+    
+    @keyframes logoFloat,
+    @keyframes titlePulse,
+    @keyframes borderGlow {
+        animation-play-state: paused;
+    }
+}
+
+/* تحسين إمكانية الوصول */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* تحسين للوضع الليلي */
+@media (prefers-color-scheme: dark) {
+    .container {
+        background: rgba(44, 24, 16, 0.95);
+    }
+    
+    .term-card, .rule-card, .quiz-question, .quiz-intro {
+        background: rgba(44, 24, 16, 0.9);
+        border-color: rgba(245, 230, 211, 0.1);
+    }
+    
+    #searchInput, #quizAnswer {
+        background: rgba(44, 24, 16, 0.8);
+        color: #F5E6D3;
+        border-color: rgba(245, 230, 211, 0.2);
+    }
+    
+    #searchInput::placeholder {
+        color: rgba(245, 230, 211, 0.6);
+    }
+}
+
+/* تحسين للشاشات الصغيرة جداً - أجهزة ذكية محمولة */
+@media (max-width: 320px) {
+    .container {
+        margin: 2px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
+    header h1 {
+        font-size: 1.5em;
+    }
+    
+    header h2 {
+        font-size: 0.85em;
+    }
+    
+    .logo {
+        height: 60px;
+        max-height: 60px;
+    }
+    
+    .tabs {
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+    
+    .tab-button {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+    
+    .term-arabic {
+        font-size: 1.1em;
+    }
+    
+    .term-english {
+        font-size: 0.95em;
+    }
+    
+    button {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
 }
 
 /* إضافة تأثير الموجة عند النقر */
