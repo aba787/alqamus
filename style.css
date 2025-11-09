@@ -40,6 +40,8 @@ body::before {
     margin-bottom: 30px;
     position: relative;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    width: calc(100% - 60px);
+    min-height: auto;
 }
 
 /* تأثير الإضاءة */
@@ -160,13 +162,14 @@ header h2 {
     border: none;
     border-radius: 50px;
     width: 450px;
-    max-width: 80%;
+    max-width: 100%;
     outline: none;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 2px solid rgba(102, 126, 234, 0.2);
+    min-width: 280px;
 }
 
 #searchInput:focus {
@@ -659,12 +662,89 @@ button:active {
     }
 }
 
-/* تحسين التجاوب للشاشات الصغيرة */
-@media (max-width: 768px) {
+/* تحسين التجاوب للأجهزة الصغيرة جداً - الجوالات الصغيرة */
+@media (max-width: 480px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+        border-radius: 15px;
+    }
+    
+    .logo {
+        height: 100px;
+        max-height: 100px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+    
+    header h2 {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+    
+    #searchInput {
+        width: 100%;
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+    
+    .search-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+    }
+    
+    .tab-button {
+        font-size: 12px;
+        padding: 10px 15px;
+        margin: 2px;
+    }
+    
+    .terms-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .term-card {
+        padding: 15px;
+    }
+    
+    .term-arabic {
+        font-size: 1.3em;
+    }
+    
+    .term-english {
+        font-size: 1.1em;
+    }
+    
+    .quiz-term {
+        font-size: 1.3em;
+    }
+    
+    .rule-card {
+        padding: 15px;
+    }
+}
+
+/* تحسين التجاوب للجوالات - الشاشات المتوسطة */
+@media (min-width: 481px) and (max-width: 768px) {
     .container {
         margin: 15px;
         padding: 20px;
         border-radius: 20px;
+    }
+    
+    .logo {
+        height: 120px;
+        max-height: 120px;
     }
     
     header h1 {
@@ -718,6 +798,125 @@ button:active {
     button {
         padding: 15px 25px;
         font-size: 15px;
+    }
+}
+
+/* تحسين التجاوب للتابلت - الشاشات المتوسطة الكبيرة */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        margin: 20px;
+        padding: 25px;
+    }
+    
+    .logo {
+        height: 130px;
+        max-height: 130px;
+    }
+    
+    header h1 {
+        font-size: 2.5em;
+    }
+    
+    header h2 {
+        font-size: 1.2em;
+    }
+    
+    #searchInput {
+        width: 70%;
+        font-size: 16px;
+    }
+    
+    .search-section {
+        flex-direction: row;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .terms-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .tab-button {
+        padding: 14px 25px;
+        font-size: 15px;
+    }
+    
+    button {
+        padding: 16px 30px;
+        font-size: 16px;
+    }
+}
+
+/* تحسين للشاشات الكبيرة - اللابتوب والديسكتوب */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 1200px;
+        padding: 30px;
+    }
+    
+    .logo {
+        height: 140px;
+        max-height: 180px;
+    }
+    
+    .terms-list {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 25px;
+    }
+    
+    #searchInput {
+        width: 450px;
+        max-width: 60%;
+    }
+}
+
+/* تحسينات إضافية لجميع الأجهزة */
+@media (orientation: landscape) and (max-height: 600px) {
+    .logo {
+        height: 80px !important;
+        max-height: 80px !important;
+    }
+    
+    header h1 {
+        font-size: 1.8em !important;
+    }
+    
+    header h2 {
+        font-size: 1em !important;
+    }
+    
+    .container {
+        padding: 15px !important;
+    }
+}
+
+/* تحسين لمنع التكبير في iOS */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select:focus,
+    textarea:focus,
+    input:focus {
+        font-size: 16px !important;
+    }
+}
+
+/* تحسين للطباعة */
+@media print {
+    .search-section,
+    .tabs,
+    button {
+        display: none !important;
+    }
+    
+    .container {
+        box-shadow: none !important;
+        background: white !important;
+    }
+    
+    .term-card {
+        break-inside: avoid;
+        margin-bottom: 20px;
     }
 }
 
