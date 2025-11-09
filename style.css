@@ -1,15 +1,14 @@
-
 /* متغيرات الألوان الموحدة */
 :root {
     --primary-burgundy: #8B1538;
-    --secondary-gold: #B8860B;
-    --accent-brown: #D2691E;
+    --secondary-red-brown: #722F37;
     --light-cream: #F5E6D3;
+    --golden-beige: #D4B896;
     --text-dark: #2C1810;
     --text-secondary: #4a5568;
-    --gradient-primary: linear-gradient(135deg, #8B1538 0%, #B8860B 100%);
-    --gradient-secondary: linear-gradient(135deg, #8B1538 0%, #D2691E 100%);
-    --gradient-accent: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-primary: linear-gradient(135deg, #8B1538 0%, #722F37 100%);
+    --gradient-secondary: linear-gradient(135deg, #722F37 0%, #D4B896 100%);
+    --gradient-accent: linear-gradient(135deg, #F5E6D3 0%, #D4B896 100%); /* Placeholder, needs adjustment */
     --shadow-light: 0 8px 25px rgba(139, 21, 56, 0.15);
     --shadow-medium: 0 15px 35px rgba(139, 21, 56, 0.2);
     --shadow-heavy: 0 25px 50px rgba(139, 21, 56, 0.25);
@@ -395,7 +394,7 @@ button:active {
 }
 
 .term-category {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: var(--gradient-primary); /* Updated to primary gradient */
     color: white;
     padding: 6px 15px;
     border-radius: 20px;
@@ -403,7 +402,7 @@ button:active {
     font-weight: 500;
     display: inline-block;
     margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+    box-shadow: 0 4px 15px rgba(139, 21, 56, 0.3); /* Updated shadow color */
 }
 
 .term-example {
