@@ -8,8 +8,8 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #2c3e50;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    color: #8B4513;
+    background: linear-gradient(135deg, #8B1538 0%, #A0274A 50%, #B8395C 100%);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -125,7 +125,7 @@ header::after {
 }
 
 header h1 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 3em;
@@ -142,10 +142,10 @@ header h1 {
 }
 
 header h2 {
-    color: #666;
+    color: #A0522D;
     font-size: 1.4em;
     font-weight: 300;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .search-section {
@@ -186,7 +186,7 @@ header h2 {
 
 button {
     padding: 18px 35px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
     color: white;
     border: none;
     border-radius: 50px;
@@ -194,7 +194,7 @@ button {
     font-size: 16px;
     font-weight: 600;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 25px rgba(210, 105, 30, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -216,8 +216,8 @@ button:hover::before {
 
 button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46a3 100%);
+    box-shadow: 0 15px 35px rgba(210, 105, 30, 0.4);
+    background: linear-gradient(135deg, #B8860B 0%, #DAA520 100%);
 }
 
 button:active {
@@ -252,10 +252,10 @@ button:active {
 }
 
 .tab-button.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
     color: white;
     border-color: transparent;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 10px 30px rgba(210, 105, 30, 0.4);
 }
 
 .tab-button.active::after {
@@ -293,7 +293,7 @@ button:active {
 
 .tab-content h3 {
     text-align: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 40px;
@@ -359,7 +359,7 @@ button:active {
 .term-arabic {
     font-size: 1.6em;
     font-weight: 700;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
@@ -369,7 +369,7 @@ button:active {
 
 .term-english {
     font-size: 1.3em;
-    color: #764ba2;
+    color: #CD853F;
     margin-bottom: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -395,11 +395,11 @@ button:active {
 
 .term-example {
     font-style: italic;
-    color: #555;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    color: #8B4513;
+    background: linear-gradient(135deg, rgba(210, 105, 30, 0.1) 0%, rgba(205, 133, 63, 0.1) 100%);
     padding: 15px;
     border-radius: 15px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #D2691E;
     line-height: 1.7;
     position: relative;
 }
@@ -448,7 +448,7 @@ button:active {
 }
 
 .rule-text {
-    color: #555;
+    color: #8B4513;
     margin-bottom: 15px;
     line-height: 1.8;
     font-size: 1.1em;
