@@ -605,7 +605,7 @@ function createVoiceSettings() {
         position: fixed;
         bottom: 20px;
         left: 20px;
-        background: linear-gradient(135deg, #f093fb, #f5576c);
+        background: linear-gradient(135deg, #8B1538, #722F37);
         color: white;
         border: none;
         border-radius: 25px;
@@ -613,7 +613,7 @@ function createVoiceSettings() {
         font-size: 14px;
         cursor: pointer;
         z-index: 1000;
-        box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+        box-shadow: 0 5px 15px rgba(139, 21, 56, 0.4);
     `;
     
     settingsBtn.onclick = function() {
